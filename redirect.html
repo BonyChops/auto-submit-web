@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting</title>
+</head>
+
+<body>
+    <div id="div1">
+
+    </div>
+    <script>
+        const rand = (min, max) => { return Math.round(Math.random() * (max - min)) + min }
+        const randTemp = (rand(360, 366)) / 10; //36.0 ~ 36.6
+        console.log(("a=b&c=d").substr(1).split("&"))
+        const queries = window.location.search.substr(1).split("&").map(data => ({ key: data.split("=")[0], val: data.split("=")[1] }));
+        console.log(queries)
+        if (!queries.some(query => query.key === "time") || Number(new Date()) - Number(queries.find(query => query.key === "time").val) > 500) {
+            console.log("redirecting")
+            location.href = `https://docs.google.com/forms/d/e/1FAIpQLSc4vHqxAZrompeH2hqSJgAX8DCNmKiegWiPcgcDaaKMUeda6g/viewform?entry.1607804534=${randTemp}&entry.277223531=%E7%97%87%E7%8A%B6%E3%81%AF%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93`
+        } else {
+            const newDiv = document.createElement("div");
+            var newContent = document.createTextNode("準備が完了しました！このページをブックマークやホーム画面のショートカットに追加してください．次回からフォームへ自動的に転送されます(今再読み込みしても移動します)");
+            newDiv.appendChild(newContent);
+
+            // DOM に新しく作られた要素とその内容を追加します
+            var currentDiv = document.getElementById("div1");
+            document.body.insertBefore(newDiv, currentDiv);
+        }
+    </script>
+</body>
+
+</html>
